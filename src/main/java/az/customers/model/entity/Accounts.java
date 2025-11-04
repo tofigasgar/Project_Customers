@@ -1,0 +1,72 @@
+package az.customers.model.entity;
+
+import az.customers.model.enums.AccountStatus;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+
+@Builder
+@Entity
+@Getter
+@Setter
+@ToString
+@Table(name = "accounts")
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Accounts {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "The account id", example = "1")
+    Long id;
+
+    @Column(name = "balance")
+    @Schema(description = "The user balance", example = "100000.00")
+    BigDecimal balance;
+
+    @Column(name = "account_number", unique = true)
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Please enter the correct account number format")
+    @Schema(description = "The user account number", example = "123456789")
+    String accountNumber;
+
+    @Column(name = "currency", nullable = false)
+    @Schema(description = "The user currency", example = "USD")
+    String currency;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    @Schema(description = "The user status", example = "ACTIVE")
+    AccountStatus status;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id", nullable = false)
+    Customer customer;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<AccountTransaction> accountTransaction;
+
+    @CreationTimestamp
+    @Column(name = "created_at")
+    @Schema(description = "The user createdAt", example = "01/01/2000")
+    LocalDate createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    @Schema(description = "The user updatedAt", example = "01/01/2000")
+    LocalDate updatedAt;
+
+    @Column(name = "active")
+    @Schema(description = "The user active", example = "default 1")
+    @Builder.Default
+    Boolean active = true;
+
+}
