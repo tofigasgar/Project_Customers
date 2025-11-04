@@ -30,6 +30,14 @@ public class AccountTransaction {
     @Schema(description = "The transaction amount", example = "1000.00")
     BigDecimal amount;
 
+    @Column(name = "before_balance", nullable = false)
+    @Schema(description = "The transaction before balance", example = "100000.00")
+    BigDecimal beforeBalance;
+
+    @Column(name = "after_balance", nullable = false)
+    @Schema(description = "The transaction after balance", example = "99000.00")
+    BigDecimal afterBalance;
+
     @Column(name = "description")
     @Schema(description = "The transaction description", example = "Deposit")
     String description;
