@@ -1,5 +1,6 @@
 package az.customers.model.response;
 
+import az.customers.helper.GeneratorUUID;
 import az.customers.model.enums.ErrorCodes;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,7 @@ public class CommonErrorResponse {
                 .message(message)
                 .errorCode(code.getCode())
                 .timestamp(LocalDateTime.now())
+                .uuid(GeneratorUUID.generateUUID())
                 .path(path)
                 .build();
     }

@@ -44,9 +44,9 @@ public class Customer {
     @NotNull
     String fin;
 
-    @Column(name = "passport_serial", unique = true)
+    @Column(name = "passport_serial", unique = true, nullable = false)
     @Schema(description = "The user passport seria number", example = "AA111111")
-    @NotNull
+    @Pattern(regexp = "^(AZE|AA)\\d{8}$", message = "Please enter the correct passport serial number format")
     String passportSerial;
 
     @Column(name = "birth_date")

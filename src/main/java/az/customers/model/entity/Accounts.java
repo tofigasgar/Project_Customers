@@ -34,7 +34,7 @@ public class Accounts {
     BigDecimal balance;
 
     @Column(name = "account_number", unique = true)
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Please enter the correct account number format")
+    @Pattern(regexp = "^AZ\\d{2}[A-Z]{4}\\d{20}$", message = "Please enter the correct account number format")
     @Schema(description = "The user account number", example = "123456789")
     String accountNumber;
 
