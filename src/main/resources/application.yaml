@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: customers
+
+  datasource:
+    url: jdbc:mysql://localhost:3309/mysqlDB
+    username: tofig
+    password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    show-sql: true
+    properties:
+      hibernate:
+      sql-format: true
+
+  liquibase:
+    enabled: false
+
+springdoc:
+  api-docs:
+    path: /user-ui
+    resolve-schema-properties: true
+  swagger-ui:
+    operations-sorter: method
+    tags-sorter: alpha
+    try-it-out-enabled: true
+    filter: true
+    deep-linking: true
+    display-request-duration: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  override-with-generic-response: false
+
+
+

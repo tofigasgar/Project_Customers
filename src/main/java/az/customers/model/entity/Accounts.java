@@ -51,7 +51,7 @@ public class Accounts {
     @JoinColumn(name = "customer_id", nullable = false)
     Customer customer;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "accounts", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<AccountTransaction> accountTransaction;
 
     @CreationTimestamp
