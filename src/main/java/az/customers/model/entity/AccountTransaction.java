@@ -1,5 +1,6 @@
 package az.customers.model.entity;
 
+import az.customers.model.enums.TransactionType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,6 +42,11 @@ public class AccountTransaction {
     @Column(name = "description")
     @Schema(description = "The transaction description", example = "Deposit")
     String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false)
+    @Schema(description = "The transaction type", example = "DEPOSIT")
+    TransactionType type;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", nullable = false)
