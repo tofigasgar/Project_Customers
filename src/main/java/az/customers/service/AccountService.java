@@ -9,6 +9,7 @@ import az.customers.model.enums.AccountStatus;
 import az.customers.model.enums.ErrorCodes;
 import az.customers.repository.AccountRepository;
 import az.customers.util.mapping.AccountsMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ public class AccountService {
     private final AccountsMapper accountsMapper;
     private final CustomerService customerService;
 
+    @Transactional
     public AccountsDto.Response createAccount(Long customerId, AccountsDto.Request request) {
         logger.info("Create account for customer: {}", customerId);
         var customer = customerService.findById(customerId);
@@ -48,6 +50,7 @@ public class AccountService {
         return accountsMapper.toDto(account);
     }
 
+    @Transactional
     public AccountsDto.Response updateAccount(Long accountId, Long customerId, AccountsDto.Update request) {
         logger.info("Account updating beginning....");
         var accounts = getAccountByIdAndCustomerId(customerId, accountId);
@@ -59,6 +62,7 @@ public class AccountService {
         return accountsMapper.toDto(accounts);
     }
 
+    @Transactional
     public void deleteAccountById(Long customerId, Long accountId) {
         logger.info("Account deleting beginning....");
         var account = getAccountByIdAndCustomerId(accountId, customerId);

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -61,13 +62,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<CommonErrorResponse> handlerMethodArgumentNotValidException(
             MethodArgumentNotValidException ex, HttpServletRequest request) {
-        logger.error("MethodArgumentNotValid error occurred: {}", ex.getMessage(), ex);
-        HashMap<String, String> errors = new HashMap<>();
+        logger.error("Validation error occurred: {}", ex.getMessage(), ex);
+
+        Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error -> {
             String fieldName = error.getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
+
         String message = "Validation error occurred: " + errors;
 
         CommonErrorResponse errorResponse = CommonErrorResponse.error(

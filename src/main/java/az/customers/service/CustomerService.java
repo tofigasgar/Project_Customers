@@ -71,6 +71,7 @@ public class CustomerService {
         return customerMapper.toResponse(updatedCustomer);
     }
 
+    @Transactional
     public void deleteCustomer(Long id) {
         logger.info("Customer deleting beginning....");
         var customer = findById(id);

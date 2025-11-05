@@ -4,6 +4,7 @@ import az.customers.model.entity.AccountTransaction;
 import az.customers.model.enums.AccountStatus;
 import az.customers.model.enums.Currency;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -55,6 +56,7 @@ public class AccountsDto {
     @FieldDefaults(level = AccessLevel.PRIVATE)
     public static class Request {
 
+        @Pattern(regexp = "^AZ\\d{2}[A-Z]{4}\\d{20}$", message = "Please enter the correct account number format")
         @Schema(description = "The user account number", example = "123456789")
         String accountNumber;
 
