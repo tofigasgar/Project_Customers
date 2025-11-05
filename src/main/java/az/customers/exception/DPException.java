@@ -20,10 +20,7 @@ public class DPException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
-    public DPException(String message, ErrorCodes errorCode) {
-        this(null, message, errorCode);
-    }
-
-    public DPException() {
+    public DPException(ErrorCodes errorCode,String message) {
+        this(message, null, errorCode);
     }
 }

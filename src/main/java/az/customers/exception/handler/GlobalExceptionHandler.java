@@ -25,30 +25,33 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public CommonErrorResponse handlerCustomerNotFoundException(
             CustomerNotFoundException ex, HttpServletRequest request) {
-        logger.error("CustomerNotFound error occurred:", ex.getMessage(), ex);
-        return CommonErrorResponse.error(ex.getMessage(), ex.getErrorCode(), request.getRequestURI());
+        logger.error("CustomerNotFound error occurred: {}", ex.getMessage(), ex);
+        return CommonErrorResponse.error(
+                ex.getMessage(), ex.getErrorCode(), request.getRequestURI());
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public CommonErrorResponse handlerResourceNotFoundException(
             ResourceNotFoundException ex, HttpServletRequest request) {
-        logger.error("ResourceNotFound error occurred", ex.getMessage(), ex);
-        return CommonErrorResponse.error(ex.getMessage(), ex.getErrorCode(), request.getRequestURI());
+        logger.error("ResourceNotFound error occurred: {}", ex.getMessage(), ex);
+        return CommonErrorResponse.error(
+                ex.getMessage(), ex.getErrorCode(), request.getRequestURI());
     }
 
     @ExceptionHandler(ResourceAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public CommonErrorResponse handlerResourceAlreadyExistsException(
             ResourceAlreadyExistsException ex, HttpServletRequest request) {
-        logger.error("ResourceAlreadyExists error occurred", ex.getMessage(), ex);
-        return CommonErrorResponse.error(ex.getMessage(), ex.getErrorCode(), request.getRequestURI());
+        logger.error("ResourceAlreadyExists error occurred: {}", ex.getMessage(), ex);
+        return CommonErrorResponse.error(
+                ex.getMessage(), ex.getErrorCode(), request.getRequestURI());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<CommonErrorResponse> handlerMethodArgumentNotValidException(
             MethodArgumentNotValidException ex, HttpServletRequest request) {
-        logger.error("MethodArgumentNotValid error occurred", ex.getMessage(), ex);
+        logger.error("MethodArgumentNotValid error occurred: {}", ex.getMessage(), ex);
         HashMap<String, String> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error -> {
             String fieldName = error.getField();

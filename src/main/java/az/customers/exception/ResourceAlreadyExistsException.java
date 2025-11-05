@@ -7,4 +7,9 @@ public class ResourceAlreadyExistsException extends DPException {
     public ResourceAlreadyExistsException(String message, String errorUuid, ErrorCodes errorCode) {
         super(message, errorUuid, errorCode);
     }
+
+    public ResourceAlreadyExistsException(ErrorCodes errorCodes, String errorMessage) {
+        super(errorCodes, errorMessage);
+    }
 }
+

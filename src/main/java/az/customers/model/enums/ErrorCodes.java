@@ -16,7 +16,7 @@ public enum ErrorCodes {
     FIN_ALREADY_EXISTS(2003, "Fin already exists"),
     INVALID_CREDENTIALS(2004, "Invalid credentials"),
     USER_DISABLED(2005, "User is disabled"),
-    PASSPORT_SERIAL_NUMBER(2006, "Passport Serial number already exists");
+    PASSPORT_SERIAL_EXISTS(2006, "Passport Serial number already exists");
 
     private final int code;
     private final String message;
