@@ -2,6 +2,7 @@ package az.customers.model.entity;
 
 import az.customers.model.enums.Gender;
 import az.customers.util.converter.GenderAttributeConverter;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -70,7 +71,8 @@ public class Customer {
     @Column(name = "gender", nullable = false)
     Gender gender;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL,orphanRemoval = true)
     List<Accounts> accounts;
 
     @CreationTimestamp

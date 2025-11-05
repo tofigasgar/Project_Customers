@@ -81,7 +81,7 @@ public class CustomerService {
         logger.info("Customer deleting finished....");
     }
 
-    private Customer findById(Long id) {
+    public Customer findById(Long id) {
         return customerRepository.findByIdAndActiveTrue(id).orElseThrow(() -> {
             logger.warn("Customer not found with id: {}", id);
             return new CustomerNotFoundException(ErrorCodes.CUSTOMER_NOT_FOUND, "customer not found exception");

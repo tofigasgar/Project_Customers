@@ -1,5 +1,6 @@
 package az.customers.exception.handler;
 
+import az.customers.exception.AccountNotFoundException;
 import az.customers.exception.CustomerNotFoundException;
 import az.customers.exception.ResourceAlreadyExistsException;
 import az.customers.exception.ResourceNotFoundException;
@@ -44,6 +45,15 @@ public class GlobalExceptionHandler {
     public CommonErrorResponse handlerResourceAlreadyExistsException(
             ResourceAlreadyExistsException ex, HttpServletRequest request) {
         logger.error("ResourceAlreadyExists error occurred: {}", ex.getMessage(), ex);
+        return CommonErrorResponse.error(
+                ex.getMessage(), ex.getErrorCode(), request.getRequestURI());
+    }
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public CommonErrorResponse handlerAccountNotFoundException(
+            AccountNotFoundException ex, HttpServletRequest request) {
+        logger.error("AccountNotFound error occurred: {}", ex.getMessage(), ex);
         return CommonErrorResponse.error(
                 ex.getMessage(), ex.getErrorCode(), request.getRequestURI());
     }

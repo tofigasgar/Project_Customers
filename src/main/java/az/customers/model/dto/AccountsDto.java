@@ -2,6 +2,7 @@ package az.customers.model.dto;
 
 import az.customers.model.entity.AccountTransaction;
 import az.customers.model.enums.AccountStatus;
+import az.customers.model.enums.Currency;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -54,20 +55,12 @@ public class AccountsDto {
     @FieldDefaults(level = AccessLevel.PRIVATE)
     public static class Request {
 
-        @Schema(description = "The user balance", example = "100000.00")
-        BigDecimal balance;
-
         @Schema(description = "The user account number", example = "123456789")
         String accountNumber;
 
         @Schema(description = "The user currency", example = "USD")
-        String currency;
+        Currency currency;
 
-        @Schema(description = "The user status", example = "ACTIVE")
-        AccountStatus status;
-
-        @Schema(description = "The customer fin", example = "QQQQ123")
-        String customerFin;
     }
 
     @Getter
@@ -77,7 +70,7 @@ public class AccountsDto {
     @NoArgsConstructor
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
-    public static class UpdateRequest {
+    public static class Update {
 
         @Schema(description = "The user status", example = "ACTIVE")
         AccountStatus status;

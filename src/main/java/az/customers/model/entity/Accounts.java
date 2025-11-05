@@ -1,6 +1,8 @@
 package az.customers.model.entity;
 
 import az.customers.model.enums.AccountStatus;
+import az.customers.model.enums.Currency;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
@@ -35,12 +37,13 @@ public class Accounts {
 
     @Column(name = "account_number", unique = true)
     @Pattern(regexp = "^AZ\\d{2}[A-Z]{4}\\d{20}$", message = "Please enter the correct account number format")
-    @Schema(description = "The user account number", example = "123456789")
+    @Schema(description = "The user account number", example = "")
     String accountNumber;
 
     @Column(name = "currency", nullable = false)
     @Schema(description = "The user currency", example = "USD")
-    String currency;
+    @Enumerated(EnumType.STRING)
+    Currency currency;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -49,6 +52,7 @@ public class Accounts {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", nullable = false)
+    @JsonBackReference
     Customer customer;
 
     @OneToMany(mappedBy = "accounts", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -81,7 +81,7 @@ public class CustomerDto {
         @Schema(description = "Gender", example = "Male or Female")
         Gender gender;
 
-        List<Accounts> accounts;
+        List<AccountsDto.Response> accounts;
 
         @Schema(description = "The user createdAt", example = "01/01/2000")
         LocalDate createdAt;
