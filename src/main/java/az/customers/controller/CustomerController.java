@@ -33,6 +33,13 @@ public class CustomerController {
                 "Customer successfully ", customerService.getCustomerById(id));
     }
 
+//    @GetMapping()
+//    @ResponseStatus(HttpStatus.OK)
+//    public CommonResponse<CustomerDto.Response> getCustomerByFin(@RequestParam String fin) {
+//        return CommonResponse.success(
+//                "Customer successfully ", customerService.getCustomerByFin(fin));
+//    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CommonResponse<CustomerDto.Response> createCustomer(@RequestBody @Valid CustomerDto.Request request) {

@@ -41,7 +41,7 @@ public class AccountsDto {
         @Schema(description = "The customer fin", example = "QQQQ123")
         String customerFin;
 
-        List<AccountTransaction> accountTransaction;
+        List<AccountsTransactionDto.Response> accountTransaction;
 
         @Schema(description = "The user createdAt", example = "01/01/2000")
         LocalDate createdAt;

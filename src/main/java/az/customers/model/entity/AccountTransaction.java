@@ -1,6 +1,7 @@
 package az.customers.model.entity;
 
 import az.customers.model.enums.TransactionType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
@@ -43,11 +44,12 @@ public class AccountTransaction {
     @Schema(description = "The transaction description", example = "Deposit")
     String description;
 
-    @Enumerated(EnumType.STRING)
+   // @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     @Schema(description = "The transaction type", example = "DEPOSIT")
-    TransactionType type;
+    String type;
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", nullable = false)
     Accounts accounts;

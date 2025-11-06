@@ -24,7 +24,7 @@ public class AccountsTransactionDto {
         String description;
 
         @Schema(description = "The transaction type", example = "DEPOSIT")
-        TransactionType type;
+        String type;
     }
 
     @Getter
@@ -37,7 +37,7 @@ public class AccountsTransactionDto {
     public static class Response {
 
         @Schema(description = "Account-transaction ID", example = "1")
-        Long Id;
+        Long id;
 
         @Schema(description = "The transaction amount", example = "1000.00")
         BigDecimal amount;
@@ -52,7 +52,7 @@ public class AccountsTransactionDto {
         String description;
 
         @Schema(description = "The transaction type", example = "DEPOSIT")
-        TransactionType type;
+        String type;
 
         @Schema(description = "The user account number", example = "123456789")
         String accountNumber;

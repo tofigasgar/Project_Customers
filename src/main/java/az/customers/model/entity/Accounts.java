@@ -3,6 +3,7 @@ package az.customers.model.entity;
 import az.customers.model.enums.AccountStatus;
 import az.customers.model.enums.Currency;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
@@ -55,6 +56,7 @@ public class Accounts {
     @JsonBackReference
     Customer customer;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "accounts", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<AccountTransaction> accountTransaction;
 

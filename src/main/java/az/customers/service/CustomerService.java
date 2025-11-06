@@ -88,4 +88,14 @@ public class CustomerService {
             return new CustomerNotFoundException(ErrorCodes.CUSTOMER_NOT_FOUND, "customer not found exception");
         });
     }
+
+//    public CustomerDto.Response getCustomerByFin(String fin) {
+//        logger.info("Get customer fin by beginning");
+//        customerRepository.findByFin(fin).orElseThrow(() -> {
+//            logger.warn("Customer not found with fin: {}", fin);
+//            return new CustomerNotFoundException(ErrorCodes.CUSTOMER_NOT_FOUND, "customer not found exception");
+//        });
+//        logger.info("Customer successfully found by fin: {}", fin);
+//        return customerMapper.toResponse(customerRepository.findByFin(fin).get());
+//    }
 }
