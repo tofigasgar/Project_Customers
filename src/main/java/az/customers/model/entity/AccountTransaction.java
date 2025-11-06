@@ -1,6 +1,5 @@
 package az.customers.model.entity;
 
-import az.customers.model.enums.TransactionType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;

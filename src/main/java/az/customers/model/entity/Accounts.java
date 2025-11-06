@@ -38,7 +38,7 @@ public class Accounts {
 
     @Column(name = "account_number", unique = true)
     @Pattern(regexp = "^AZ\\d{2}[A-Z]{4}\\d{20}$", message = "Please enter the correct account number format")
-    @Schema(description = "The user account number", example = "")
+    @Schema(description = "The user account number", example = "AZ21BBAZ00000000000012345678")
     String accountNumber;
 
     @Column(name = "currency", nullable = false)

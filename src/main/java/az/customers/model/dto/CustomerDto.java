@@ -1,7 +1,7 @@
 package az.customers.model.dto;
 
-import az.customers.model.entity.Accounts;
 import az.customers.model.enums.Gender;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
@@ -21,6 +21,7 @@ public class CustomerDto {
     @NoArgsConstructor
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Schema(description = "Customer request")
     public static class Request {
 
         @Schema(description = "The customer name", example = "Tofig")
@@ -61,6 +62,7 @@ public class CustomerDto {
     @NoArgsConstructor
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Schema(description = "Customer response")
     public static class Response {
         @Schema(description = "The customer id", example = "1")
         Long id;
@@ -102,6 +104,7 @@ public class CustomerDto {
     @NoArgsConstructor
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Schema(description = "Customer update request")
     public static class Update {
 
         @Schema(description = "The customer name", example = "Tofig")

@@ -14,16 +14,20 @@ public class LoggingInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
+        request.setAttribute("startTime", System.currentTimeMillis());
         logger.info("Incoming Request: Method = {}," +
-                " URI = {}," + "Status code = {}", request.getMethod(), request.getRequestURI());
+                " URI = {}", request.getMethod(), request.getRequestURI());
         return true;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request,
                                 HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        logger.info("Incoming Request: Method = {}, URI = {}, Status code = {}",
-                request.getMethod(), request.getRequestURI(), response.getStatus());
+        Long start = (Long) request.getAttribute("startTime");
+        Long duration = System.currentTimeMillis() - start;
+        String ip = request.getRemoteAddr();
+        logger.info("Incoming Request: Method = {}, URI = {}, Status code = {}, Duration = {} ms, IP = {}",
+                request.getMethod(), request.getRequestURI(), response.getStatus(), duration, ip);
 
     }
 }
