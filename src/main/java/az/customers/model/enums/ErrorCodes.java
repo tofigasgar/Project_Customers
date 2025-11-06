@@ -18,7 +18,11 @@ public enum ErrorCodes {
     USER_DISABLED(2005, "User is disabled"),
     PASSPORT_SERIAL_EXISTS(2006, "Passport Serial number already exists"),
     ACCOUNT_NUMBER_EXISTS(2007, "Account number already exists"),
-    ACCOUNT_NOT_FOUND(2008, "Account not found");
+    ACCOUNT_NOT_FOUND(2008, "Account not found"),
+    INACTIVE_ACCOUNT(2009, "Inactive account"),
+    INSUFFICIENT_FUNDS(2010, "Insufficient funds"),
+    BLOCKED_ACCOUNT(2011, "Blocked account"),
+    TRANSACTION_NOT_FOUND(2012, "Transaction not found");
 
     private final int code;
     private final String message;

@@ -19,4 +19,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     Page<Customer> findByActiveTrue(Pageable pageable);
 
+    Optional<Customer> findByFin(String fin);
+
 }

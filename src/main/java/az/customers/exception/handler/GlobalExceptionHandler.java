@@ -1,9 +1,6 @@
 package az.customers.exception.handler;
 
-import az.customers.exception.AccountNotFoundException;
-import az.customers.exception.CustomerNotFoundException;
-import az.customers.exception.ResourceAlreadyExistsException;
-import az.customers.exception.ResourceNotFoundException;
+import az.customers.exception.*;
 import az.customers.logger.DPLogger;
 import az.customers.model.enums.ErrorCodes;
 import az.customers.model.response.CommonErrorResponse;
@@ -78,4 +75,32 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
+
+    @ExceptionHandler(InactiveAccountException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public CommonErrorResponse handlerInactiveAccountException(
+            InactiveAccountException ex, HttpServletRequest request) {
+        logger.error("InactiveAccount error occurred: {}", ex.getMessage(), ex);
+        return CommonErrorResponse.error(
+                ex.getMessage(), ex.getErrorCode(), request.getRequestURI());
+    }
+
+    @ExceptionHandler(InsufficientFundsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public CommonErrorResponse handlerInsufficientFundsException(
+            InsufficientFundsException ex, HttpServletRequest request) {
+        logger.error("InsufficientFunds error occurred: {}", ex.getMessage(), ex);
+        return CommonErrorResponse.error(
+                ex.getMessage(), ex.getErrorCode(), request.getRequestURI());
+    }
+
+    @ExceptionHandler(TransactionNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public CommonErrorResponse handlerTransactionNotFoundException(
+            TransactionNotFoundException ex, HttpServletRequest request) {
+        logger.error("TransactionNotFound error occurred: {}", ex.getMessage(), ex);
+        return CommonErrorResponse.error(
+                ex.getMessage(), ex.getErrorCode(), request.getRequestURI());
+    }
 }
+
