@@ -33,8 +33,8 @@ public class CustomerController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CustomerDto.Response.class))
             ),
-            @ApiResponse(responseCode = "400",
-                    description = "Bad Request",
+            @ApiResponse(responseCode = "404",
+                    description = "Not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CommonErrorResponse.class)))
     })
@@ -53,8 +53,8 @@ public class CustomerController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CustomerDto.Response.class))
             ),
-            @ApiResponse(responseCode = "400",
-                    description = "Bad Request",
+            @ApiResponse(responseCode = "404",
+                    description = "Customer Not found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CommonErrorResponse.class)))
     })
@@ -62,14 +62,6 @@ public class CustomerController {
         return CommonResponse.success(
                 "Customer successfully ", customerService.getCustomerById(id));
     }
-
-//    @GetMapping()
-//    @ResponseStatus(HttpStatus.OK)
-//    public CommonResponse<CustomerDto.Response> getCustomerByFin(@RequestParam String fin) {
-//        return CommonResponse.success(
-//                "Customer successfully ", customerService.getCustomerByFin(fin));
-//    }
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

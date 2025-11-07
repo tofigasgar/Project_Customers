@@ -9,7 +9,9 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class CustomerDto {
@@ -91,7 +93,7 @@ public class CustomerDto {
         @Schema(description = "Gender", example = "Male or Female")
         Gender gender;
 
-        List<AccountsDto.Response> accounts;
+       // List<AccountsDto.Response> accounts;
 
         @Schema(description = "The user createdAt", example = "01/01/2000")
         LocalDate createdAt;
