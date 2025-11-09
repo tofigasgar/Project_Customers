@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: tofig
+      changes:
+        - sql:
+            splitStatements: false
+            stripComments: false
+            sql: |
+              CREATE PROCEDURE get_account_transaction_by_id(
+                  IN p_account_id BIGINT,
+                  IN p_id BIGINT
+              )
+              BEGIN
+                  -- Əvvəlcə hesabın aktiv olub-olmadığını yoxlayırıq
+                  IF NOT EXISTS (
+                      SELECT 1
+                      FROM accounts
+                      WHERE id = p_account_id
+                        AND active = TRUE
+                  ) THEN
+                      SIGNAL SQLSTATE '45000'
+                          SET MESSAGE_TEXT = 'Account not found or inactive';
+                  END IF;
+
+                  -- Sonra transaction-ın həmin hesabla əlaqəli və aktiv olub-olmadığını yoxlayırıq
+                  IF NOT EXISTS (
+                      SELECT 1
+                      FROM account_transaction
+                      WHERE id = p_id
+                        AND account_id = p_account_id
+                        AND active = TRUE
+                  ) THEN
+                      SIGNAL SQLSTATE '45000'
+                          SET MESSAGE_TEXT = 'Active transaction not found for this account';
+                  END IF;
+
+                  -- Əgər hər ikisi tapılıbsa, məlumatı qaytarırıq
+                  SELECT
+                      at.id AS id,
+                      at.amount,
+                      at.before_balance AS beforeBalance,
+                      at.after_balance AS afterBalance,
+                      at.description,
+                      at.type,
+                      at.created_at AS createdAt,
+                      at.updated_at AS updatedAt,
+                      a.account_number AS accountNumber,
+                      a.id AS accountId
+                  FROM account_transaction at
+                           JOIN accounts a ON at.account_id = a.id
+                  WHERE at.id = p_id
+                    AND at.account_id = p_account_id
+                    AND at.active = TRUE
+                    AND a.active = TRUE;
+              END;

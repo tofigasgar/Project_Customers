@@ -51,13 +51,13 @@ public class Accounts {
     @Schema(description = "The user status", example = "ACTIVE")
     AccountStatus status;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     @JsonBackReference
     Customer customer;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "accounts", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "accounts", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<AccountTransaction> accountTransaction;
 
     @CreationTimestamp

@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Tofig Asgarov
+      changes:
+        - createTable:
+            tableName: accounts
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: balance
+                  type: DECIMAL(19,2)
+
+              - column:
+                  name: account_number
+                  type: VARCHAR(34)
+                  constraints:
+                    unique: true
+
+              - column:
+                  name: currency
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: customer_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_accounts_customer
+                    references: customers(id)
+
+              - column:
+                  name: created_at
+                  type: DATE
+
+              - column:
+                  name: updated_at
+                  type: DATE
+
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+

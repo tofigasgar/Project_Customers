@@ -65,14 +65,17 @@ public class AccountsTransactionDto {
     @NoArgsConstructor
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
-    public static class Update {
+    public static class Transfer {
         @Schema(description = "The transaction amount", example = "1000.00")
         BigDecimal amount;
 
         @Schema(description = "The transaction description", example = "Deposit")
         String description;
 
-        @Schema(description = "The transaction type", example = "DEPOSIT")
-        TransactionType type;
+        @Schema(description = "The account number", example = "")
+        String fromAccountNumber;
+
+        @Schema(description = "The account number", example = "")
+        String toAccountNumber;
     }
 }

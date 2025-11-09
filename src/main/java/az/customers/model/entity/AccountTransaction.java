@@ -49,7 +49,7 @@ public class AccountTransaction {
     String type;
 
     @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     Accounts accounts;
 

@@ -1,0 +1,116 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: tofig
+      changes:
+        - sql:
+            splitStatements: false
+            stripComments: false
+            sql: |
+
+              CREATE PROCEDURE transfer_between_accounts(
+                  IN p_from_account_number VARCHAR(28),
+                  IN p_to_account_number VARCHAR(28),
+                  IN p_amount DECIMAL(15,2),
+                  IN p_description VARCHAR(255)
+              )
+              BEGIN
+                  DECLARE v_from_id BIGINT;
+                  DECLARE v_to_id BIGINT;
+                  DECLARE v_from_balance DECIMAL(15,2);
+                  DECLARE v_to_balance DECIMAL(15,2);
+                  DECLARE v_from_status VARCHAR(20);
+                  DECLARE v_to_status VARCHAR(20);
+                  DECLARE v_transaction_id BIGINT;
+
+                  -- Eyni hesaba köçürmə yoxlanışı
+                  IF p_from_account_number = p_to_account_number THEN
+                      SIGNAL SQLSTATE '45000'
+                          SET MESSAGE_TEXT = 'Cannot transfer to the same account';
+                  END IF;
+
+                  -- From account məlumatlarını götürək
+                  SELECT id, balance, status
+                  INTO v_from_id, v_from_balance, v_from_status
+                  FROM accounts
+                  WHERE account_number = p_from_account_number
+                      FOR UPDATE;
+
+                  IF v_from_id IS NULL THEN
+                      SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'From account not found';
+                  END IF;
+
+                  -- To account məlumatlarını götürək
+                  SELECT id, balance, status
+                  INTO v_to_id, v_to_balance, v_to_status
+                  FROM accounts
+                  WHERE account_number = p_to_account_number
+                      FOR UPDATE;
+
+                  IF v_to_id IS NULL THEN
+                      SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'To account not found';
+                  END IF;
+
+                  -- Aktivlik və bloklanma yoxlaması
+                  IF v_from_status NOT IN ('ACTIVE') THEN
+                      SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'From account is not active';
+                  END IF;
+
+                  IF v_to_status NOT IN ('ACTIVE') THEN
+                      SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'To account is not active';
+                  END IF;
+
+                  -- Balans yoxlaması
+                  IF v_from_balance < p_amount THEN
+                      SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Insufficient funds in from account';
+                  END IF;
+
+                  -- Balansları yeniləyək
+                  SET v_from_balance = v_from_balance - p_amount;
+                  SET v_to_balance = v_to_balance + p_amount;
+
+                  UPDATE accounts
+                  SET balance = v_from_balance, updated_at = NOW()
+                  WHERE id = v_from_id;
+
+                  UPDATE accounts
+                  SET balance = v_to_balance, updated_at = NOW()
+                  WHERE id = v_to_id;
+
+                  -- Transaction əlavə edək (debit)
+                  INSERT INTO account_transaction(
+                      amount, before_balance, after_balance, description, type, account_id, created_at, updated_at, active
+                  )
+                  VALUES (
+                             p_amount,
+                             v_from_balance + p_amount,
+                             v_from_balance,
+                             CONCAT('Transfer to ', p_to_account_number, ': ', p_description),
+                             'WITHDRAW',
+                             v_from_id,
+                             NOW(),
+                             NOW(),
+                             TRUE
+                         );
+
+                  SET v_transaction_id = LAST_INSERT_ID();  -- əsas transaction id
+
+                  -- Transaction əlavə edək (credit)
+                  INSERT INTO account_transaction(
+                      amount, before_balance, after_balance, description, type, account_id, created_at, updated_at, active
+                  )
+                  VALUES (
+                             p_amount,
+                             v_to_balance - p_amount,
+                             v_to_balance,
+                             CONCAT('Transfer from ', p_from_account_number, ': ', p_description),
+                             'DEPOSIT',
+                             v_to_id,
+                             NOW(),
+                             NOW(),
+                             TRUE
+                         );
+
+                  -- Geri qaytaracağıq əsas əməliyyatın id-sini (debit)
+                  SELECT v_transaction_id AS transaction_id;
+              END

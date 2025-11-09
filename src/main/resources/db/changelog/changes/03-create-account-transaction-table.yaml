@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: tofig
+      changes:
+        - createTable:
+            tableName: account_transaction
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: amount
+                  type: DECIMAL(19,2)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: before_balance
+                  type: DECIMAL(19,2)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: after_balance
+                  type: DECIMAL(19,2)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+
+              - column:
+                  name: type
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: account_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_account_transaction_account
+                    references: accounts(id)
+
+              - column:
+                  name: created_at
+                  type: DATE
+
+              - column:
+                  name: updated_at
+                  type: DATE
+
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
