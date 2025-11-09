@@ -9,6 +9,7 @@ databaseChangeLog:
               - column:
                   name: id
                   type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -45,11 +46,11 @@ databaseChangeLog:
 
               - column:
                   name: created_at
-                  type: DATE
+                  type: timestamp
 
               - column:
                   name: updated_at
-                  type: DATE
+                  type: timestamp
 
               - column:
                   name: active

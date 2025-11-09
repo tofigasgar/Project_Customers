@@ -9,6 +9,7 @@ databaseChangeLog:
               - column:
                   name: id
                   type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -34,7 +35,7 @@ databaseChangeLog:
 
               - column:
                   name: passport_serial
-                  type: VARCHAR(10)
+                  type: VARCHAR(20)
                   constraints:
                     nullable: false
                     unique: true
@@ -61,11 +62,11 @@ databaseChangeLog:
 
               - column:
                   name: created_at
-                  type: DATE
+                  type: timestamp
 
               - column:
                   name: updated_at
-                  type: DATE
+                  type: timestamp
 
               - column:
                   name: active

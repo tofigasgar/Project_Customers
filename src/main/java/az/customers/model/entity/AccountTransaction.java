@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Builder
 @Entity
@@ -56,12 +57,12 @@ public class AccountTransaction {
     @CreationTimestamp
     @Column(name = "created_at")
     @Schema(description = "The user createdAt", example = "01/01/2000")
-    LocalDate createdAt;
+    LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
     @Schema(description = "The user updatedAt", example = "01/01/2000")
-    LocalDate updatedAt;
+    LocalDateTime updatedAt;
 
     @Column(name = "active")
     @Schema(description = "The user active", example = "default 1")
