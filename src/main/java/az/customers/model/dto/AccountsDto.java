@@ -33,7 +33,7 @@ public class AccountsDto {
         String accountNumber;
 
         @Schema(description = "The user currency", example = "USD")
-        String currency;
+        Currency currency;
 
         @Schema(description = "The user status", example = "ACTIVE")
         AccountStatus status;

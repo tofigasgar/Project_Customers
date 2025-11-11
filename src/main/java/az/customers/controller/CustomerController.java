@@ -40,8 +40,7 @@ public class CustomerController {
     })
     public CommonResponse<Page<CustomerDto.Response>> getAllCustomers(
             @PageableDefault(sort = "id", size = 5) Pageable pageable) {
-        return CommonResponse.success(
-                "All users...", customerService.getAllCustomers(pageable));
+        return CommonResponse.success(customerService.getAllCustomers(pageable));
     }
 
     @GetMapping("{id}")
@@ -59,8 +58,7 @@ public class CustomerController {
                             schema = @Schema(implementation = CommonErrorResponse.class)))
     })
     public CommonResponse<CustomerDto.Response> getCustomerById(@PathVariable Long id) {
-        return CommonResponse.success(
-                "Customer successfully ", customerService.getCustomerById(id));
+        return CommonResponse.success(customerService.getCustomerById(id));
     }
 
     @PostMapping
@@ -78,8 +76,7 @@ public class CustomerController {
                             schema = @Schema(implementation = CommonErrorResponse.class)))
     })
     public CommonResponse<CustomerDto.Response> createCustomer(@RequestBody @Valid CustomerDto.Request request) {
-        return CommonResponse.success(
-                "Customer successfully created ", customerService.createCustomer(request));
+        return CommonResponse.success(customerService.createCustomer(request));
     }
 
     @PutMapping("{id}")
@@ -98,8 +95,7 @@ public class CustomerController {
     })
     public CommonResponse<CustomerDto.Response> updateCustomer(
             @PathVariable Long id, @RequestBody @Valid CustomerDto.Update request) {
-        return CommonResponse.success(
-                "Customer successfully updated ", customerService.updateCustomer(id, request));
+        return CommonResponse.success(customerService.updateCustomer(id, request));
     }
 
     @DeleteMapping("{id}")
