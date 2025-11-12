@@ -74,7 +74,7 @@ public class AccountService {
         logger.info("Account deleting finished....");
     }
 
-    private Accounts getAccountByIdAndCustomerId(Long accountId, Long customerId) {
+    private Accounts getAccountByIdAndCustomerId(Long customerId, Long accountId) {
         return accountRepository.findByIdAndCustomerId(accountId, customerId).orElseThrow(() -> {
             logger.warn("Account not found with id: {}", accountId);
             return new AccountNotFoundException(ErrorCodes.ACCOUNT_NOT_FOUND, "Account not found exception");

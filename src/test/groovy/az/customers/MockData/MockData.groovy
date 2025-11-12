@@ -3,6 +3,8 @@ package az.customers.MockData
 import az.customers.model.dto.AccountsDto
 import az.customers.model.dto.AccountsTransactionDto
 import az.customers.model.dto.CustomerDto
+import az.customers.model.entity.Accounts
+import az.customers.model.entity.Customer
 import az.customers.model.enums.AccountStatus
 import az.customers.model.enums.Currency
 import az.customers.model.enums.Gender
@@ -119,6 +121,51 @@ class MockData {
                 .description("deposit transaction")
                 .type("DEPOSIT")
                 .accountNumber("AZ21BBBZ00111114107000345678")
+                .build()
+    }
+
+    static final Customer customerEntity() {
+        Customer
+                .builder()
+                .id(1L)
+                .name("Tofig")
+                .surname("Asgarov")
+                .fin("TYGD334")
+                .passportSerial("AZE57155599")
+                .gender(Gender.MALE)
+                .phone("0107271701")
+                .email("tofig@mail.ru")
+                .build()
+    }
+
+    static final Customer customerEntityForUpdate() {
+        Customer
+                .builder()
+                .id(1L)
+                .name("Tofig")
+                .surname("Asgarov")
+                .fin("TYGD334")
+                .passportSerial("AZE57105599")
+                .gender(Gender.MALE)
+                .phone("0107271701")
+                .email("tofig@mail.ru")
+                .build()
+    }
+
+    static final Accounts accountEntity() {
+        Accounts
+                .builder()
+                .id(1L)
+                .balance(new BigDecimal("0"))
+                .accountNumber("AZ21BBBZ00111114107000345678")
+                .currency(Currency.AZN)
+                .build()
+    }
+
+    static final AccountsDto.Update accountRequestUpdate() {
+        AccountsDto.Update
+                .builder()
+                .status(AccountStatus.ACTIVE)
                 .build()
     }
 
