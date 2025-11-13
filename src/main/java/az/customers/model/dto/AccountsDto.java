@@ -1,6 +1,5 @@
 package az.customers.model.dto;
 
-import az.customers.model.entity.AccountTransaction;
 import az.customers.model.enums.AccountStatus;
 import az.customers.model.enums.Currency;
 import io.swagger.v3.oas.annotations.media.Schema;

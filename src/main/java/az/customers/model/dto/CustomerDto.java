@@ -1,7 +1,6 @@
 package az.customers.model.dto;
 
 import az.customers.model.enums.Gender;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
@@ -9,10 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Schema(name = "CustomerDTO", description = "CustomerDTO class")
 public class CustomerDto {
@@ -117,6 +113,7 @@ public class CustomerDto {
         String surname;
 
         @Schema(description = "The user passport seria number", example = "AZE57155509")
+        @Pattern(regexp = "^(AZE|AA)\\d{8}$", message = "Please enter the correct passport serial number format")
         String passportSerial;
 
         @Email(message = "Please enter the correct email format")

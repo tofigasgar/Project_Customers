@@ -1,6 +1,5 @@
 package az.customers.model.dto;
 
-import az.customers.model.enums.TransactionType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -17,7 +16,7 @@ public class AccountsTransactionDto {
     @NoArgsConstructor
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
-    @Schema(name = "AccountsTransactionDTORequest", description = "AccountTransactionDTO  Request")
+    @Schema(name = "AccountsTransactionDTORequest", description = "AccountTransactionDto  Request")
     public static class Request {
         @Schema(description = "The transaction amount", example = "1000.00")
         BigDecimal amount;
@@ -36,7 +35,7 @@ public class AccountsTransactionDto {
     @NoArgsConstructor
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
-    @Schema(name = "AccountsTransactionDtoResponse", description = "AccountTransactionDTO  Response")
+    @Schema(name = "AccountsTransactionDtoResponse", description = "AccountTransactionDto  Response")
     public static class Response {
 
         @Schema(description = "Account-transaction ID", example = "1")
@@ -54,31 +53,10 @@ public class AccountsTransactionDto {
         @Schema(description = "The transaction description", example = "Deposit")
         String description;
 
-        @Schema(description = "The transaction type", example = "DEPOSIT")
+        @Schema(description = "The transaction type", example = "DEPOSIT or WITHDRAW")
         String type;
 
         @Schema(description = "The user account number", example = "AZ21BBBZ22111114107000345678")
         String accountNumber;
     }
-
-//    @Getter
-//    @Setter
-//    @ToString
-//    @AllArgsConstructor
-//    @NoArgsConstructor
-//    @Builder
-//    @FieldDefaults(level = AccessLevel.PRIVATE)
-//    public static class Transfer {
-//        @Schema(description = "The transaction amount", example = "1000.00")
-//        BigDecimal amount;
-//
-//        @Schema(description = "The transaction description", example = "Deposit")
-//        String description;
-//
-//        @Schema(description = "The account number", example = "")
-//        String fromAccountNumber;
-//
-//        @Schema(description = "The account number", example = "")
-//        String toAccountNumber;
-//    }
 }
