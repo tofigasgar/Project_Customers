@@ -9,7 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder
@@ -46,7 +45,6 @@ public class AccountTransaction {
 
     @Column(name = "type", nullable = false)
     @Schema(description = "The transaction type", example = "DEPOSIT")
-    //@Enumerated(EnumType.STRING)
     String type;
 
     @JsonBackReference
