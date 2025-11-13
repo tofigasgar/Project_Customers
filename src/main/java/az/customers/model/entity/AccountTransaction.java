@@ -44,9 +44,9 @@ public class AccountTransaction {
     @Schema(description = "The transaction description", example = "Deposit")
     String description;
 
-   // @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     @Schema(description = "The transaction type", example = "DEPOSIT")
+    //@Enumerated(EnumType.STRING)
     String type;
 
     @JsonBackReference

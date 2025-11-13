@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -39,7 +40,7 @@ public class CustomerController {
                             schema = @Schema(implementation = CommonErrorResponse.class)))
     })
     public CommonResponse<Page<CustomerDto.Response>> getAllCustomers(
-            @PageableDefault(sort = "id", size = 5) Pageable pageable) {
+            @ParameterObject @PageableDefault(sort = "id", size = 5) Pageable pageable) {
         return CommonResponse.success(customerService.getAllCustomers(pageable));
     }
 
@@ -75,7 +76,10 @@ public class CustomerController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CommonErrorResponse.class)))
     })
-    public CommonResponse<CustomerDto.Response> createCustomer(@RequestBody @Valid CustomerDto.Request request) {
+    public CommonResponse<CustomerDto.Response> createCustomer(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    required = true, content = @Content(schema = @Schema(implementation = CustomerDto.Request.class)))
+            @RequestBody @Valid CustomerDto.Request request) {
         return CommonResponse.success(customerService.createCustomer(request));
     }
 
@@ -94,6 +98,8 @@ public class CustomerController {
                             schema = @Schema(implementation = CommonErrorResponse.class)))
     })
     public CommonResponse<CustomerDto.Response> updateCustomer(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    required = true, content = @Content(schema = @Schema(implementation = CustomerDto.Update.class)))
             @PathVariable Long id, @RequestBody @Valid CustomerDto.Update request) {
         return CommonResponse.success(customerService.updateCustomer(id, request));
     }
