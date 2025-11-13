@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+@Schema(name = "AccountDTO", description = "AccountDTO class")
 public class AccountsDto {
 
     @Getter
@@ -21,6 +22,7 @@ public class AccountsDto {
     @NoArgsConstructor
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Schema(name = "AccountResponse", description = "Account response")
     public static class Response {
 
         @Schema(description = "The account id", example = "1")
@@ -29,7 +31,7 @@ public class AccountsDto {
         @Schema(description = "The user balance", example = "100000.00")
         BigDecimal balance;
 
-        @Schema(description = "The user account number", example = "123456789")
+        @Schema(description = "The user account number", example = "AZ21BBBZ22111114107000345678")
         String accountNumber;
 
         @Schema(description = "The user currency", example = "USD")
@@ -43,7 +45,7 @@ public class AccountsDto {
 
         List<AccountsTransactionDto.Response> accountTransaction;
 
-        @Schema(description = "The user createdAt", example = "01/01/2000")
+        @Schema(description = "The user createdAt", example = "2025-11-09")
         LocalDate createdAt;
     }
 
@@ -54,10 +56,11 @@ public class AccountsDto {
     @NoArgsConstructor
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Schema(name = "AccountRequest", description = "Account request")
     public static class Request {
 
         @Pattern(regexp = "^AZ\\d{2}[A-Z]{4}\\d{20}$", message = "Please enter the correct account number format")
-        @Schema(description = "The user account number", example = "123456789")
+        @Schema(description = "The user account number", example = "AZ21BBBZ22111114107000345678")
         String accountNumber;
 
         @Schema(description = "The user currency", example = "USD")
@@ -72,6 +75,7 @@ public class AccountsDto {
     @NoArgsConstructor
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Schema(name = "AccountUpdate", description = "Account update request")
     public static class Update {
 
         @Schema(description = "The user status", example = "ACTIVE")

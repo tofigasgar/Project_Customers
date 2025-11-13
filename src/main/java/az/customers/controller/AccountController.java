@@ -71,8 +71,8 @@ public class AccountController {
                     description = "Get accounts by id",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = AccountsDto.Response.class))),
-            @ApiResponse(responseCode = "400",
-                    description = "Bad Request",
+            @ApiResponse(responseCode = "404",
+                    description = "Not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CommonErrorResponse.class)))
     })

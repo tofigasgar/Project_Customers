@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Schema(name = "CustomerDTO", description = "CustomerDTO class")
 public class CustomerDto {
 
     @Getter
@@ -23,7 +24,7 @@ public class CustomerDto {
     @NoArgsConstructor
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
-    @Schema(description = "Customer request")
+    @Schema(name = "CustomerRequest", description = "Customer request")
     public static class Request {
 
         @Schema(description = "The customer name", example = "Tofig")
@@ -37,10 +38,10 @@ public class CustomerDto {
         String fin;
 
         @Pattern(regexp = "^(AZE|AA)\\d{8}$", message = "Please enter the correct passport serial number format")
-        @Schema(description = "The user passport seria number", example = "AA111111")
+        @Schema(description = "The user passport seria number", example = "AZE57155509")
         String passportSerial;
 
-        @Schema(description = "The user birthdate", example = "01/01/2000")
+        @Schema(description = "The user birthdate", example = "1997-11-25")
         LocalDate birthDate;
 
         @Email(message = "Please enter the correct email format")
@@ -52,7 +53,7 @@ public class CustomerDto {
         @Schema(description = "The user phone number", example = "010271701")
         String phone;
 
-        @Schema(description = "Gender", example = "Male or Female")
+        @Schema(description = "Gender", example = "MALE")
         Gender gender;
 
     }
@@ -64,7 +65,7 @@ public class CustomerDto {
     @NoArgsConstructor
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
-    @Schema(description = "Customer response")
+    @Schema(name = "CustomerResponse", description = "Customer response")
     public static class Response {
         @Schema(description = "The customer id", example = "1")
         Long id;
@@ -78,10 +79,10 @@ public class CustomerDto {
         @Schema(description = "The user fin", example = "QQQQ123")
         String fin;
 
-        @Schema(description = "The user passport seria number", example = "AA111111")
+        @Schema(description = "The user passport seria number", example = "AZE57155509")
         String passportSerial;
 
-        @Schema(description = "The user birthdate", example = "01/01/2000")
+        @Schema(description = "The user birthdate", example = "1997-11-25")
         LocalDate birthDate;
 
         @Schema(description = "The user email", example = "tofigasgarov@gmail.com")
@@ -90,12 +91,12 @@ public class CustomerDto {
         @Schema(description = "The user phone number", example = "010271701")
         String phone;
 
-        @Schema(description = "Gender", example = "Male or Female")
+        @Schema(description = "Gender", example = "MALE")
         Gender gender;
 
-       // List<AccountsDto.Response> accounts;
+        // List<AccountsDto.Response> accounts;
 
-        @Schema(description = "The user createdAt", example = "01/01/2000")
+        @Schema(description = "The user createdAt", example = "2025-11-09")
         LocalDate createdAt;
     }
 
@@ -106,7 +107,7 @@ public class CustomerDto {
     @NoArgsConstructor
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
-    @Schema(description = "Customer update request")
+    @Schema(name = "CustomerUpdate", description = "Customer update request")
     public static class Update {
 
         @Schema(description = "The customer name", example = "Tofig")
@@ -115,7 +116,8 @@ public class CustomerDto {
         @Schema(description = "The customer surname", example = "Asgarov")
         String surname;
 
-        @Schema(description = "The user passport seria number", example = "AA111111")
+        @Schema(description = "The user passport seria number", example = "AZE57155509")
+        @Pattern(regexp = "^(AZE|AA)\\d{8}$", message = "Please enter the correct passport serial number format")
         String passportSerial;
 
         @Email(message = "Please enter the correct email format")
